@@ -14,8 +14,7 @@
       </div>
     </head>
     <div id="map-container">
-      <div id="point"></div>
-      <img id="map-image" alt="Wheel of Time Map" src="./assets/wot-map.jpg">
+      <Map></Map>
       <aside id="info-container">
         <h1>Info</h1>
       </aside>
@@ -26,8 +25,13 @@
 <script lang="ts">
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import { books, chapters } from '@/utilities/book-info'
+import Map from '@/components/Map.vue'
 
-@Component
+@Component({
+  components: {
+    Map
+  }
+})
 export default class App extends Vue {
   private selectedBook: string = localStorage.book ? localStorage.book : this.books[1];
   private selectedChapter: string = localStorage.chapter ? localStorage.chapter : this.bookChapters[0];
@@ -155,18 +159,13 @@ select {
 
   #info-container {
     border-left: ridge .5rem #8C3836;
-    min-width: 10rem;
-  }
-}
+    width: 50%;
+    padding: .5rem;
 
-#point {
-  width: 1rem;
-  height: 1rem;
-  background-color: blue;
-  border-radius: 100%;
-  position: absolute;
-  top: 38%;
-  left: 20.5%;
+    h1 {
+      margin-top: 0;
+    }
+  }
 }
 
 </style>
