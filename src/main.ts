@@ -9,15 +9,14 @@ new Vue({
   render: h => h(App)
 }).$mount('#app')
 
-delete (Icon.Default.prototype as any)._getIconUrl
+type D = Icon.Default & {
+  _getIconUrl?: string;
+};
+
 Icon.Default.mergeOptions({
   iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
   iconUrl: require('leaflet/dist/images/marker-icon.png'),
   shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 })
-
-type D = Icon.Default & {
-  _getIconUrl?: string;
-};
 
 delete (Icon.Default.prototype as D)._getIconUrl

@@ -14,10 +14,8 @@
       </div>
     </head>
     <div id="map-container">
-      <Map></Map>
-      <aside id="info-container">
-        <h1>Info</h1>
-      </aside>
+      <Map :book="selectedBook" :chapter="selectedChapter" @goToLocation="goToLocation"></Map>
+      <Info :book="selectedBook" :chapter="selectedChapter" :location="location" @resetLocation="goToLocation('')"></Info>
     </div>
   </div>
 </template>
@@ -26,15 +24,18 @@
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import { books, chapters } from '@/utilities/book-info'
 import Map from '@/components/Map.vue'
+import Info from '@/components/Info.vue'
 
 @Component({
   components: {
-    Map
+    Map,
+    Info
   }
 })
 export default class App extends Vue {
-  private selectedBook: string = localStorage.book ? localStorage.book : this.books[1];
-  private selectedChapter: string = localStorage.chapter ? localStorage.chapter : this.bookChapters[0];
+  private selectedBook: string = localStorage.book ?? this.books[1];
+  private selectedChapter: string = localStorage.chapter ?? this.bookChapters[0];
+  private location: string = localStorage.search ?? '';
 
   private get books () {
     return books
@@ -54,6 +55,10 @@ export default class App extends Vue {
     localStorage.book = this.selectedBook
     this.selectedChapter = this.bookChapters[0]
   }
+
+  private goToLocation (location: string) {
+    this.location = location
+  }
 }
 </script>
 
@@ -64,6 +69,7 @@ $books: #DEE3B0, #7FC2D1, #D5D6DB, #8C3836, #522028, #342984, #E6DD8E, #CCBF86, 
 :root{
   --background: white;
   --text: black;
+  --accent: #8C3836;
 }
 
 @media (prefers-color-scheme: dark)
@@ -99,7 +105,7 @@ select {
 }
 
 #top-nav {
-  border-bottom: ridge .5rem #8C3836;
+  border-bottom: ridge .5rem Var(--accent);
   padding: 1rem;
   display: flex;
   flex: 1;
@@ -127,15 +133,31 @@ select {
     &.selected {
       color: white;
     }
-  }
-}
 
-@for $i from 0 through length($books) - 1 {
-  #book-#{$i} {
-    border: solid .5rem nth($books, $i + 1);
+    @for $i from 0 through length($books) - 1 {
+      &#book-#{$i} {
+        border: solid .5rem nth($books, $i + 1);
 
-    &.selected {
-      background-color: nth($books, $i + 1);
+        &.selected {
+          background-color: nth($books, $i + 1);
+
+          @if ($i == 0) {
+            color: black;
+          }
+          @else if ($i == 2) {
+            color: black;
+          }
+          @else if ($i == 6) {
+            color: black;
+          }
+          @else if ($i == 7) {
+            color: black;
+          }
+          @else if ($i == 10) {
+            color: black;
+          }
+        }
+      }
     }
   }
 }
@@ -147,25 +169,8 @@ select {
 }
 
 #map-container {
-  overflow: auto;
   display: flex;
   height: 100%;
-
-  img {
-    width: auto;
-    display: block;
-    height: 100%;
-  }
-
-  #info-container {
-    border-left: ridge .5rem #8C3836;
-    width: 50%;
-    padding: .5rem;
-
-    h1 {
-      margin-top: 0;
-    }
-  }
 }
 
 </style>

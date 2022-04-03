@@ -10,20 +10,28 @@
       :bounds="bounds"
     />
     <l-marker
-      v-for="star in stars"
-      :key="star.name"
-      :lat-lng="star"
+      v-for="point in map.points"
+      :key="point.name"
+      :lat-lng="point"
+      @click="goToLocation(point.name)"
     >
-      <l-popup :content="star.name" />
+      <l-popup :content="point.name" />
     </l-marker>
-    <l-polyline :lat-lngs="travel" color="red" weight="5" />
+    <l-polyline
+      v-for="(path, index) in map.paths"
+      :key="index"
+      :lat-lngs="path.path"
+      :color="path.color"
+      :weight="5"
+    />
   </l-map>
 </template>
 
-<script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+<script scoped lang="ts">
+import { Component, Vue, Prop } from 'vue-property-decorator'
 import { LMap, LImageOverlay, LMarker, LPopup, LPolyline } from 'vue2-leaflet'
 import { CRS } from 'leaflet'
+import { MapService } from '@/services/mapService'
 
 @Component({
   components: {
@@ -35,20 +43,26 @@ import { CRS } from 'leaflet'
   }
 })
 export default class Map extends Vue {
-  private url = '/img/wot-map.4edb0adf.jpg'
+  @Prop() private book!: string
+  @Prop() private chapter!: string
+  private url = 'https://raw.githubusercontent.com/austin-owensby/wot/master/src/assets/wot-map.jpg' // There's got to be a better way to do this right???
   private bounds = [[0, 0], [1000, 1000]]
   private minZoom = -2
   private crs = CRS.Simple
-  private travel = [[440, 401], [484, 414]]
-  private stars = [
-    { name: 'Emond\'s Field', lng: 401, lat: 440 },
-    { name: 'Baerlon', lng: 414, lat: 484 }
-  ]
+
+  private get map () {
+    return MapService.getMap(this.book, this.chapter)
+  }
 
   private mounted () {
     if (this.$refs.map) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (this.$refs.map as any).mapObject.setView([500, 500], 0)
     }
+  }
+
+  private goToLocation (location: string) {
+    this.$emit('goToLocation', location)
   }
 }
 </script>

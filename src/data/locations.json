@@ -1,0 +1,23 @@
+[
+    {
+        "bookIndex": 1,
+        "chapterIndex": 0,
+        "name": "Emond's Field",
+        "description": "Sheep + tabac",
+        "tags": []
+    },
+    {
+        "bookIndex": 1,
+        "chapterIndex": 12,
+        "name": "Taren Ferry",
+        "description": "",
+        "tags": []
+    },
+    {
+        "bookIndex": 1,
+        "chapterIndex": 14,
+        "name": "Baerlon",
+        "description": "<i>BAYR-lon</i><br>A city in Andor on the road from Caemlyn to the mines in the Mointains of Mist.",
+        "tags": []
+    }
+]
