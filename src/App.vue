@@ -1,21 +1,23 @@
 <template>
   <div id="app">
-    <head id="top-nav">
-      <nav id="book-nav">
+    <head id="top-nav" :class="{'hide-header': !showHeader}">
+      <nav v-if="showHeader" id="book-nav">
         <div v-for="(book, index) in books" :id="`book-${index}`" :title="book" @click="selectBook(book)" :class="{selected: selectedBook === book}" :key="book">
           <span>{{index}}</span>
         </div>
       </nav>
-      <div id="book-selection">
+      <div v-if="showHeader" id="book-selection">
         <span>{{selectedBook}}</span>
         <select v-model="selectedChapter">
           <option v-for="chapter in bookChapters" :key="chapter" :value="chapter">{{chapter}}</option>
         </select>
       </div>
+      <div v-if="showHeader" id="collapse-icon" :class="{left: !showInfo}" @click="collapse('Header')" title="Collapse Header">^</div>
+      <div v-if="!showHeader" id="collapse-icon-down" :class="{left: !showInfo}" @click="collapse('Header')" title="Show Header">v</div>
     </head>
     <div id="map-container">
-      <Map :book="selectedBook" :chapter="selectedChapter" @goToLocation="goToLocation"></Map>
-      <Info :book="selectedBook" :chapter="selectedChapter" :location="location" @resetLocation="goToLocation('')"></Info>
+      <Map v-if="showMap" :book="selectedBook" :chapter="selectedChapter" :fullWidth="!showInfo" @goToLocation="goToLocation" @collapse="collapse('Map')"></Map>
+      <Info v-if="showInfo" :book="selectedBook" :chapter="selectedChapter" :location="location" :fullWidth="!showMap" @resetLocation="goToLocation('')" @collapse="collapse('Info')"></Info>
     </div>
   </div>
 </template>
@@ -36,6 +38,9 @@ export default class App extends Vue {
   private selectedBook: string = localStorage.book ?? this.books[1];
   private selectedChapter: string = localStorage.chapter ?? this.bookChapters[0];
   private location: string = localStorage.search ?? '';
+  private showMap: boolean = localStorage.showMap === undefined ? true : localStorage.showMap === 'true';
+  private showInfo: boolean = localStorage.showInfo === undefined ? true : localStorage.showInfo === 'true';
+  private showHeader: boolean = localStorage.showHeader === undefined ? true : localStorage.showHeader === 'true';
 
   private get books () {
     return books
@@ -43,11 +48,6 @@ export default class App extends Vue {
 
   private get bookChapters () {
     return chapters[this.selectedBook]
-  }
-
-  @Watch('selectedChapter')
-  private chapterSelected () {
-    localStorage.chapter = this.selectedChapter
   }
 
   private selectBook (book: string) {
@@ -58,6 +58,33 @@ export default class App extends Vue {
 
   private goToLocation (location: string) {
     this.location = location
+  }
+
+  private collapse (view: string) {
+    if (view === 'Map') {
+      if (this.showInfo) {
+        this.showMap = false
+      } else {
+        this.showInfo = true
+      }
+    } else if (view === 'Info') {
+      if (this.showMap) {
+        this.showInfo = false
+      } else {
+        this.showMap = true
+      }
+    } else if (view === 'Header') {
+      this.showHeader = !this.showHeader
+    }
+
+    localStorage.showMap = this.showMap
+    localStorage.showInfo = this.showInfo
+    localStorage.showHeader = this.showHeader
+  }
+
+  @Watch('selectedChapter')
+  private chapterSelected () {
+    localStorage.chapter = this.selectedChapter
   }
 }
 </script>
@@ -110,14 +137,47 @@ select {
   display: flex;
   flex: 1;
   flex-direction: column;
-  overflow-x: auto;
-  min-height: 5.75rem;
-  max-height: 5.75rem;
+  min-height: 6.5rem;
+  max-height: 6.5rem;
+
+  &.hide-header {
+    min-height: 0;
+    max-height: 0;
+    height: 0;
+    padding: 0;
+  }
+
+  #collapse-icon,
+  #collapse-icon-down {
+    position: absolute;
+    z-index: 1000;
+    background: black;
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    right: 0;
+    top: 7rem;
+
+    &.left {
+      left: 0;
+      z-index: 10000;
+    }
+  }
+
+  #collapse-icon-down {
+    top: .5rem;
+  }
 }
 
 #book-nav{
   display: flex;
   margin-bottom: 1rem;
+  overflow-x: auto;
 
   div {
     border-radius: 100%;
@@ -172,5 +232,4 @@ select {
   display: flex;
   height: 100%;
 }
-
 </style>

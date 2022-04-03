@@ -1,12 +1,14 @@
 <template>
-  <aside id="info-container">
+  <aside id="info-container" :class="{'full-width': fullWidth}" title="Shrink/Collapse Info">
+    <div id="collapse-icon" @click="collapse">&gt;</div>
     <h1>Info</h1>
-    <div id="info-options">
-        <button :class="{selected: selectedTab === 'Summary'}" @click="setTab('Summary')">Summary</button>
-        <button :class="{selected: selectedTab === 'Locations'}" @click="setTab('Locations')">Locations</button>
-        <button :class="{selected: selectedTab === 'Characters'}" @click="setTab('Characters')">Characters</button>
-        <button :class="{selected: selectedTab === 'Timeline'}" @click="setTab('Timeline')">Timeline</button>
-    </div>
+    <select v-model="selectedTab">
+      <option value="Summary">Summary</option>
+      <option value="Locations">Locations</option>
+      <option value="Characters">Characters</option>
+      <option value="Timeline">Timeline</option>
+      <option value="Glossary">Glossary</option>
+    </select>
     <input v-if="selectedTab !== 'Summary'" type="search" v-model="search" :placeholder="'Search ' + selectedTab">
     <div class="content" v-if="selectedTab === 'Summary'" v-html="summary">
     </div>
@@ -39,6 +41,13 @@
             </div>
         </div>
     </div>
+    <div class="content" v-if="selectedTab === 'Glossary'">
+        <div class="card" v-for="event in timeline" :key="event.name">
+            <div class="header">{{event.name}} - {{event.time}}</div>
+            <div v-html="event.summary">
+            </div>
+        </div>
+    </div>
   </aside>
 </template>
 
@@ -51,6 +60,7 @@ export default class App extends Vue {
   @Prop() private book!: string
   @Prop() private chapter!: string
   @Prop() private location!: string
+  @Prop() private fullWidth!: boolean
   private selectedTab = localStorage.tab ?? 'Summary'
   private search = localStorage.search
 
@@ -70,10 +80,14 @@ export default class App extends Vue {
     return DataService.getTimeline(this.book, this.chapter).filter(e => !this.search || (this.search && e.name.includes(this.search)))
   }
 
-  private setTab (tab: string) {
-    this.selectedTab = tab
+  private collapse () {
+    this.$emit('collapse')
+  }
+
+  @Watch('selectedTab')
+  private tabChanged () {
     this.search = ''
-    localStorage.tab = tab
+    localStorage.tab = this.selectedTab
     localStorage.search = this.search
     this.$emit('resetLocation')
   }
@@ -103,36 +117,29 @@ export default class App extends Vue {
 #info-container {
   border-left: ridge .5rem var(--accent);
   width: 50%;
-  padding: .5rem;
-  min-width: 21rem;
   overflow: auto;
 
+  &.full-width {
+    width: 100%;
+
+    #collapse-icon {
+      left: .5rem;
+    }
+  }
+
   h1 {
-    margin-top: 0;
+    margin-top: .5rem;
+    text-align: center;
+  }
+
+  select {
+    font-size: 1.5rem;
+    margin-bottom: .5rem;
   }
 }
 
-#info-options {
-    display: flex;
-    flex: 1;
-    margin-bottom: .5rem;
-
-    button {
-        display: flex;
-        font-size: 1rem;
-        width: 25%;
-        height: 2rem;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        font-weight: bold;
-        color: black;
-        border-radius: 0;
-
-        &.selected {
-            color: var(--accent);
-        }
-    }
+#info-container > * {
+  margin: 0 1rem;
 }
 
 .card {
@@ -150,6 +157,22 @@ export default class App extends Vue {
 
 .content {
   overflow: auto;
+}
+
+#collapse-icon {
+  position: absolute;
+  z-index: 1000;
+  background: black;
+  width: 1.5rem;
+  height: 1.5rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  left: calc(50% + .25rem);
+  margin: 0;
 }
 
 </style>

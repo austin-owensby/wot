@@ -1,30 +1,34 @@
 <template>
-  <l-map
-    ref="map"
-    :min-zoom="minZoom"
-    :crs="crs"
-    style="height: 100%; width: 50%;"
-  >
-    <l-image-overlay
-      :url="url"
-      :bounds="bounds"
-    />
-    <l-marker
-      v-for="point in map.points"
-      :key="point.name"
-      :lat-lng="point"
-      @click="goToLocation(point.name)"
+  <div id="map-container" :class="{'full-width': fullWidth}" title="Shrink/Collapse Map">
+    <l-map
+      ref="map"
+      :min-zoom="minZoom"
+      :crs="crs"
+      :maxBounds="bounds"
+      style="height: 100%; width: 100%;"
     >
-      <l-popup :content="point.name" />
-    </l-marker>
-    <l-polyline
-      v-for="(path, index) in map.paths"
-      :key="index"
-      :lat-lngs="path.path"
-      :color="path.color"
-      :weight="5"
-    />
-  </l-map>
+      <l-image-overlay
+        :url="url"
+        :bounds="bounds"
+      />
+      <l-marker
+        v-for="point in map.points"
+        :key="point.name"
+        :lat-lng="point"
+        @click="goToLocation(point.name)"
+      >
+        <l-popup :content="point.name" />
+      </l-marker>
+      <l-polyline
+        v-for="(path, index) in map.paths"
+        :key="index"
+        :lat-lngs="path.path"
+        :color="path.color"
+        :weight="5"
+      />
+    </l-map>
+    <div id="collapse-icon" @click="collapse">&lt;</div>
+  </div>
 </template>
 
 <script scoped lang="ts">
@@ -45,6 +49,7 @@ import { MapService } from '@/services/mapService'
 export default class Map extends Vue {
   @Prop() private book!: string
   @Prop() private chapter!: string
+  @Prop() private fullWidth!: boolean
   private url = 'https://raw.githubusercontent.com/austin-owensby/wot/master/src/assets/wot-map.jpg' // There's got to be a better way to do this right???
   private bounds = [[0, 0], [1000, 1000]]
   private minZoom = -2
@@ -64,5 +69,38 @@ export default class Map extends Vue {
   private goToLocation (location: string) {
     this.$emit('goToLocation', location)
   }
+
+  private collapse () {
+    this.$emit('collapse')
+  }
 }
 </script>
+
+<style scoped lang="scss">
+  #collapse-icon {
+    position: absolute;
+    z-index: 1000;
+    background: black;
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    right: calc(50% + .25rem);
+  }
+
+  #map-container {
+    width: 50%;
+
+    &.full-width {
+      width: 100%;
+
+      #collapse-icon {
+        right: 0;
+      }
+    }
+  }
+</style>
