@@ -1,6 +1,6 @@
 <template>
-  <aside id="info-container" :class="{'full-width': fullWidth}" title="Shrink/Collapse Info">
-    <div id="collapse-icon" @click="collapse">&gt;</div>
+  <aside id="info-container" :class="{'full-width': fullWidth}">
+    <div id="collapse-icon" @click="collapse" title="Shrink/Collapse Info">&gt;</div>
     <h1>Info</h1>
     <select v-model="selectedTab">
       <option value="Summary">Summary</option>
@@ -15,21 +15,19 @@
     <div class="content" v-if="selectedTab === 'Locations'">
         <div class="card" v-for="location in locations" :key="location.name">
             <div class="header">{{location.name}}</div>
-            <div>
-                <div v-html="location.description">
-                </div>
-                <div v-for="tag in location.tags" :key="tag">
-                    {{tag}}
-                </div>
+            <div v-html="location.description"> </div>
+            <div class="tag-header" v-if="location.tags.length > 0"><i>See also</i></div>
+            <div class="tag" v-for="tag in location.tags" :key="location.name + tag" @click="goToTag(tag)">
+                {{tag}}
             </div>
         </div>
     </div>
     <div class="content" v-if="selectedTab === 'Characters'">
         <div class="card" v-for="character in characters" :key="character.name">
             <div class="header">{{character.name}}</div>
-            <div v-html="character.description">
-            </div>
-            <div v-for="tag in character.tags" :key="tag">
+            <div v-html="character.description"></div>
+            <div class="tag-header" v-if="character.tags.length > 0"><i>See also</i></div>
+            <div class="tag" v-for="tag in character.tags" :key="character.name + tag" @click="goToTag(tag)">
                 {{tag}}
             </div>
         </div>
@@ -42,9 +40,12 @@
         </div>
     </div>
     <div class="content" v-if="selectedTab === 'Glossary'">
-        <div class="card" v-for="event in timeline" :key="event.name">
-            <div class="header">{{event.name}} - {{event.time}}</div>
-            <div v-html="event.summary">
+        <div class="card" v-for="glossaryEntry in glossary" :key="glossaryEntry.name">
+            <div class="header">{{glossaryEntry.name}}</div>
+            <div v-html="glossaryEntry.description"></div>
+            <div class="tag-header" v-if="glossaryEntry.tags.length > 0"><i>See also</i></div>
+            <div class="tag" v-for="tag in glossaryEntry.tags" :key="glossaryEntry.name + tag" @click="goToTag(tag)">
+                {{tag}}
             </div>
         </div>
     </div>
@@ -80,8 +81,17 @@ export default class App extends Vue {
     return DataService.getTimeline(this.book, this.chapter).filter(e => !this.search || (this.search && e.name.includes(this.search)))
   }
 
+  private get glossary () {
+    return DataService.getGlossary(this.book, this.chapter).filter(g => !this.search || (this.search && g.name.includes(this.search)))
+  }
+
   private collapse () {
     this.$emit('collapse')
+  }
+
+  private goToTag (tag: string) {
+    this.selectedTab = 'Glossary' // Switch to the glossary in case the tag is not in the same section we are currently in
+    this.search = tag
   }
 
   @Watch('selectedTab')
@@ -117,7 +127,7 @@ export default class App extends Vue {
 #info-container {
   border-left: ridge .5rem var(--accent);
   width: 50%;
-  overflow: auto;
+  height: 100%;
 
   &.full-width {
     width: 100%;
@@ -136,6 +146,11 @@ export default class App extends Vue {
     font-size: 1.5rem;
     margin-bottom: .5rem;
   }
+
+  .content {
+    overflow: auto;
+    height: calc(100% - 6rem);
+  }
 }
 
 #info-container > * {
@@ -153,10 +168,15 @@ export default class App extends Vue {
     font-size: 1.2rem;
     font-weight: bold;
   }
-}
 
-.content {
-  overflow: auto;
+  .tag-header {
+    margin-top: 1rem;
+  }
+
+  .tag {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 }
 
 #collapse-icon {

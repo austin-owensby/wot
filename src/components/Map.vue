@@ -1,5 +1,6 @@
 <template>
-  <div id="map-container" :class="{'full-width': fullWidth}" title="Shrink/Collapse Map">
+  <div id="inner-map-container" :class="{'full-width': fullWidth}">
+    <div id="collapse-icon" @click="collapse" title="Shrink/Collapse Map">&lt;</div>
     <l-map
       ref="map"
       :min-zoom="minZoom"
@@ -27,7 +28,6 @@
         :weight="5"
       />
     </l-map>
-    <div id="collapse-icon" @click="collapse">&lt;</div>
   </div>
 </template>
 
@@ -92,7 +92,7 @@ export default class Map extends Vue {
     right: calc(50% + .25rem);
   }
 
-  #map-container {
+  #inner-map-container {
     width: 50%;
 
     &.full-width {

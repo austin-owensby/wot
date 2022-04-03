@@ -15,7 +15,7 @@
       <div v-if="showHeader" id="collapse-icon" :class="{left: !showInfo}" @click="collapse('Header')" title="Collapse Header">^</div>
       <div v-if="!showHeader" id="collapse-icon-down" :class="{left: !showInfo}" @click="collapse('Header')" title="Show Header">v</div>
     </head>
-    <div id="map-container">
+    <div id="map-container" :class="{'hide-header': !showHeader}">
       <Map v-if="showMap" :book="selectedBook" :chapter="selectedChapter" :fullWidth="!showInfo" @goToLocation="goToLocation" @collapse="collapse('Map')"></Map>
       <Info v-if="showInfo" :book="selectedBook" :chapter="selectedChapter" :location="location" :fullWidth="!showMap" @resetLocation="goToLocation('')" @collapse="collapse('Info')"></Info>
     </div>
@@ -230,6 +230,10 @@ select {
 
 #map-container {
   display: flex;
-  height: 100%;
+  height: calc(100% - 9rem);
+
+  &.hide-header {
+    height: calc(100% - .5rem);
+  }
 }
 </style>
