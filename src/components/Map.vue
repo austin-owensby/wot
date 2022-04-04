@@ -6,20 +6,25 @@
       :min-zoom="minZoom"
       :crs="crs"
       :maxBounds="bounds"
+      :options="{zoomControl: false}"
       style="height: 100%; width: 100%;"
     >
       <l-image-overlay
         :url="url"
         :bounds="bounds"
       />
-      <l-marker
+      <l-circle
         v-for="point in map.points"
         :key="point.name"
         :lat-lng="point"
+        :radius="3.5"
+        :color="point.color"
+        :fillOpacity="1"
+        :fillColor="point.color"
         @click="goToLocation(point.name)"
       >
-        <l-popup :content="point.name" />
-      </l-marker>
+        <l-tooltip>{{point.name}}</l-tooltip>
+      </l-circle>
       <l-polyline
         v-for="(path, index) in map.paths"
         :key="index"
@@ -27,13 +32,14 @@
         :color="path.color"
         :weight="5"
       />
+      <l-control-zoom position="bottomright"></l-control-zoom>
     </l-map>
   </div>
 </template>
 
 <script scoped lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
-import { LMap, LImageOverlay, LMarker, LPopup, LPolyline } from 'vue2-leaflet'
+import { LMap, LImageOverlay, LCircle, LPopup, LPolyline, LControlZoom, LTooltip } from 'vue2-leaflet'
 import { CRS } from 'leaflet'
 import { MapService } from '@/services/mapService'
 
@@ -41,9 +47,11 @@ import { MapService } from '@/services/mapService'
   components: {
     LMap,
     LImageOverlay,
-    LMarker,
+    LCircle,
     LPopup,
-    LPolyline
+    LPolyline,
+    LControlZoom,
+    LTooltip
   }
 })
 export default class Map extends Vue {
@@ -80,7 +88,8 @@ export default class Map extends Vue {
   #collapse-icon {
     position: absolute;
     z-index: 1000;
-    background: black;
+    background: var(--accent);
+    color: white;
     width: 1.5rem;
     height: 1.5rem;
     font-size: 1.25rem;

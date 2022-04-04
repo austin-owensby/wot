@@ -11,12 +11,13 @@
         <select v-model="selectedChapter">
           <option v-for="chapter in bookChapters" :key="chapter" :value="chapter">{{chapter}}</option>
         </select>
+        <button id="next-chapter-button" @click="nextChapter">Next Chapter</button>
       </div>
       <div v-if="showHeader" id="collapse-icon" :class="{left: !showInfo}" @click="collapse('Header')" title="Collapse Header">^</div>
       <div v-if="!showHeader" id="collapse-icon-down" :class="{left: !showInfo}" @click="collapse('Header')" title="Show Header">v</div>
     </head>
     <div id="map-container" :class="{'hide-header': !showHeader}">
-      <Map v-if="showMap" :book="selectedBook" :chapter="selectedChapter" :fullWidth="!showInfo" @goToLocation="goToLocation" @collapse="collapse('Map')"></Map>
+      <Map v-if="showMap" :book="selectedBook" :chapter="selectedChapter" :fullWidth="!showInfo" :key="showInfo" @goToLocation="goToLocation" @collapse="collapse('Map')"></Map>
       <Info v-if="showInfo" :book="selectedBook" :chapter="selectedChapter" :location="location" :fullWidth="!showMap" @resetLocation="goToLocation('')" @collapse="collapse('Info')"></Info>
     </div>
   </div>
@@ -52,7 +53,6 @@ export default class App extends Vue {
 
   private selectBook (book: string) {
     this.selectedBook = book
-    localStorage.book = this.selectedBook
     this.selectedChapter = this.bookChapters[0]
   }
 
@@ -76,15 +76,46 @@ export default class App extends Vue {
     } else if (view === 'Header') {
       this.showHeader = !this.showHeader
     }
+  }
 
-    localStorage.showMap = this.showMap
-    localStorage.showInfo = this.showInfo
-    localStorage.showHeader = this.showHeader
+  private nextChapter () {
+    const chapterIndex = this.bookChapters.indexOf(this.selectedChapter)
+
+    if (chapterIndex !== -1 && chapterIndex < this.bookChapters.length - 1) {
+      this.selectedChapter = this.bookChapters[chapterIndex + 1]
+    } else if (this.selectedBook !== this.books[-1]) {
+      const bookIndex = this.books.indexOf(this.selectedBook)
+
+      if (bookIndex !== -1 && bookIndex < this.books.length - 1) {
+        this.selectedBook = this.books[bookIndex + 1]
+        this.selectedChapter = this.bookChapters[0]
+      }
+    }
   }
 
   @Watch('selectedChapter')
   private chapterSelected () {
     localStorage.chapter = this.selectedChapter
+  }
+
+  @Watch('selectedBook')
+  private bookSelected () {
+    localStorage.book = this.selectedBook
+  }
+
+  @Watch('showMap')
+  private mapToggled () {
+    localStorage.showMap = this.showMap
+  }
+
+  @Watch('showInfo')
+  private infoToggled () {
+    localStorage.showInfo = this.showInfo
+  }
+
+  @Watch('showHeader')
+  private headerToggled () {
+    localStorage.showHeader = this.showHeader
   }
 }
 </script>
@@ -151,7 +182,8 @@ select {
   #collapse-icon-down {
     position: absolute;
     z-index: 1000;
-    background: black;
+    background: var(--accent);
+    color: white;
     width: 1.5rem;
     height: 1.5rem;
     font-size: 1.25rem;
@@ -165,7 +197,6 @@ select {
 
     &.left {
       left: 0;
-      z-index: 10000;
     }
   }
 
@@ -235,5 +266,10 @@ select {
   &.hide-header {
     height: calc(100% - .5rem);
   }
+}
+
+#next-chapter-button {
+  margin-left: 1rem;
+  cursor: pointer;
 }
 </style>

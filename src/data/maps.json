@@ -1,11 +1,373 @@
 [
     {
         "bookIndex": 1,
+        "chapterIndex": 25,
+        "paths": [
+            {
+                "path": [
+                    [441, 401],
+                    [458, 409],
+                    [484, 414],
+                    [470, 440],
+                    [484, 454]
+                ],
+                "color": "red"
+            },
+            {
+                "path": [
+                    [484, 454],
+                    [493, 460],
+                    [490, 465],
+                    [480, 468],
+                    [475, 475],
+                    [478, 489],
+                    [473, 497],
+                    [460, 508],
+                    [460, 516]
+                ],
+                "color": "red"
+            },
+            {
+                "path": [
+                    [484, 454],
+                    [494, 458],
+                    [492, 465],
+                    [512, 505]
+                ],
+                "color": "yellow"
+            },
+            {
+                "path": [
+                    [484, 454],
+                    [490, 464]
+                ],
+                "color": "blue"
+            }
+        ],
+        "points": [
+            { 
+                "name": "Emond's Field",
+                "lng": 401,
+                "lat": 441,
+                "color": "red"
+            },
+            { 
+                "name": "Taren Ferry",
+                "lng": 409,
+                "lat": 458,
+                "color": "red"
+            },
+            {
+                "name": "Baerlon",
+                "lng": 414,
+                "lat": 484,
+                "color": "red"
+            },
+            {
+                "name": "Shadar Logoth",
+                "lng": 454,
+                "lat": 484,
+                "color": "red"
+            }
+        ]
+    },
+    {
+        "bookIndex": 1,
+        "chapterIndex": 24,
+        "paths": [
+            {
+                "path": [
+                    [441, 401],
+                    [458, 409],
+                    [484, 414],
+                    [470, 440],
+                    [484, 454]
+                ],
+                "color": "red"
+            },
+            {
+                "path": [
+                    [484, 454],
+                    [493, 460]
+                ],
+                "color": "red"
+            },
+            {
+                "path": [
+                    [484, 454],
+                    [494, 458],
+                    [492, 465],
+                    [512, 505]
+                ],
+                "color": "yellow"
+            },
+            {
+                "path": [
+                    [484, 454],
+                    [490, 464]
+                ],
+                "color": "blue"
+            }
+        ],
+        "points": [
+            { 
+                "name": "Emond's Field",
+                "lng": 401,
+                "lat": 441,
+                "color": "red"
+            },
+            { 
+                "name": "Taren Ferry",
+                "lng": 409,
+                "lat": 458,
+                "color": "red"
+            },
+            {
+                "name": "Baerlon",
+                "lng": 414,
+                "lat": 484,
+                "color": "red"
+            },
+            {
+                "name": "Shadar Logoth",
+                "lng": 454,
+                "lat": 484,
+                "color": "red"
+            }
+        ]
+    },
+    {
+        "bookIndex": 1,
+        "chapterIndex": 23,
+        "paths": [
+            {
+                "path": [
+                    [441, 401],
+                    [458, 409],
+                    [484, 414],
+                    [470, 440],
+                    [484, 454]
+                ],
+                "color": "red"
+            },
+            {
+                "path": [
+                    [484, 454],
+                    [493, 460]
+                ],
+                "color": "red"
+            },
+            {
+                "path": [
+                    [484, 454],
+                    [494, 458],
+                    [492, 465]
+                ],
+                "color": "yellow"
+            },
+            {
+                "path": [
+                    [484, 454],
+                    [490, 464]
+                ],
+                "color": "blue"
+            }
+        ],
+        "points": [
+            { 
+                "name": "Emond's Field",
+                "lng": 401,
+                "lat": 441,
+                "color": "red"
+            },
+            { 
+                "name": "Taren Ferry",
+                "lng": 409,
+                "lat": 458,
+                "color": "red"
+            },
+            {
+                "name": "Baerlon",
+                "lng": 414,
+                "lat": 484,
+                "color": "red"
+            },
+            {
+                "name": "Shadar Logoth",
+                "lng": 454,
+                "lat": 484,
+                "color": "red"
+            }
+        ]
+    },
+    {
+        "bookIndex": 1,
+        "chapterIndex": 22,
+        "paths": [
+            {
+                "path": [
+                    [441, 401],
+                    [458, 409],
+                    [484, 414],
+                    [470, 440],
+                    [484, 454]
+                ],
+                "color": "red"
+            },
+            {
+                "path": [
+                    [484, 454],
+                    [493, 460]
+                ],
+                "color": "red"
+            },
+            {
+                "path": [
+                    [484, 454],
+                    [494, 458]
+                ],
+                "color": "yellow"
+            },
+            {
+                "path": [
+                    [484, 454],
+                    [490, 464]
+                ],
+                "color": "blue"
+            }
+        ],
+        "points": [
+            { 
+                "name": "Emond's Field",
+                "lng": 401,
+                "lat": 441,
+                "color": "red"
+            },
+            { 
+                "name": "Taren Ferry",
+                "lng": 409,
+                "lat": 458,
+                "color": "red"
+            },
+            {
+                "name": "Baerlon",
+                "lng": 414,
+                "lat": 484,
+                "color": "red"
+            },
+            {
+                "name": "Shadar Logoth",
+                "lng": 454,
+                "lat": 484,
+                "color": "red"
+            }
+        ]
+    },
+    {
+        "bookIndex": 1,
+        "chapterIndex": 21,
+        "paths": [
+            {
+                "path": [
+                    [441, 401],
+                    [458, 409],
+                    [484, 414],
+                    [470, 440],
+                    [484, 454]
+                ],
+                "color": "red"
+            },
+            {
+                "path": [
+                    [484, 454],
+                    [493, 460]
+                ],
+                "color": "red"
+            },
+            {
+                "path": [
+                    [484, 454],
+                    [494, 458]
+                ],
+                "color": "yellow"
+            }
+        ],
+        "points": [
+            { 
+                "name": "Emond's Field",
+                "lng": 401,
+                "lat": 441,
+                "color": "red"
+            },
+            { 
+                "name": "Taren Ferry",
+                "lng": 409,
+                "lat": 458,
+                "color": "red"
+            },
+            {
+                "name": "Baerlon",
+                "lng": 414,
+                "lat": 484,
+                "color": "red"
+            },
+            {
+                "name": "Shadar Logoth",
+                "lng": 454,
+                "lat": 484,
+                "color": "red"
+            }
+        ]
+    },
+    {
+        "bookIndex": 1,
+        "chapterIndex": 19,
+        "paths": [
+            {
+                "path": [
+                    [441, 401],
+                    [458, 409],
+                    [484, 414],
+                    [470, 440],
+                    [484, 454]
+                ],
+                "color": "red"
+            }
+        ],
+        "points": [
+            { 
+                "name": "Emond's Field",
+                "lng": 401,
+                "lat": 441,
+                "color": "red"
+            },
+            { 
+                "name": "Taren Ferry",
+                "lng": 409,
+                "lat": 458,
+                "color": "red"
+            },
+            {
+                "name": "Baerlon",
+                "lng": 414,
+                "lat": 484,
+                "color": "red"
+            },
+            {
+                "name": "Shadar Logoth",
+                "lng": 454,
+                "lat": 484,
+                "color": "red"
+            }
+        ]
+    },
+    {
+        "bookIndex": 1,
         "chapterIndex": 14,
         "paths": [
             {
                 "path": [
-                    [440, 401],
+                    [441, 401],
                     [458, 409],
                     [484, 414]
                 ],
@@ -16,17 +378,20 @@
             { 
                 "name": "Emond's Field",
                 "lng": 401,
-                "lat": 440
+                "lat": 441,
+                "color": "red"
             },
             { 
                 "name": "Taren Ferry",
                 "lng": 409,
-                "lat": 458
+                "lat": 458,
+                "color": "red"
             },
             {
                 "name": "Baerlon",
                 "lng": 414,
-                "lat": 484
+                "lat": 484,
+                "color": "red"
             }
         ]
     },
@@ -36,7 +401,7 @@
         "paths": [
             {
                 "path": [
-                    [440, 401],
+                    [441, 401],
                     [458, 409]
                 ],
                 "color": "red"
@@ -46,12 +411,14 @@
             { 
                 "name": "Emond's Field",
                 "lng": 401,
-                "lat": 440
+                "lat": 441,
+                "color": "red"
             },
             { 
                 "name": "Taren Ferry",
                 "lng": 409,
-                "lat": 458
+                "lat": 458,
+                "color": "red"
             }
         ]
     },
@@ -63,7 +430,8 @@
             { 
                 "name": "Emond's Field",
                 "lng": 401,
-                "lat": 440
+                "lat": 441,
+                "color": "red"
             }
         ]
     }

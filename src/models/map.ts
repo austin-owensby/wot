@@ -7,6 +7,7 @@ export interface Point {
     name: string;
     lng: number;
     lat: number;
+    color: string;
 }
 
 export interface Map {

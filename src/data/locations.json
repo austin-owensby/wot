@@ -19,5 +19,12 @@
         "name": "Baerlon",
         "description": "<i>BAYR-lon</i><br><br>A city in Andor on the road from Caemlyn to the mines in the Mointains of Mist.",
         "tags": []
+    },
+    {
+        "bookIndex": 1,
+        "chapterIndex": 19,
+        "name": "Shadar Logoth",
+        "description": "<i>SHAH-dahr LOH-goth</i><br><br>In the Old Tongue, \"the Place Where the Shadow Waits.\" A city abandoned and shunned since the Trolloc Wars. Also called \"Shadow's Waiting\"",
+        "tags": []
     }
 ]

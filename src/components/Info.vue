@@ -182,7 +182,8 @@ export default class App extends Vue {
 #collapse-icon {
   position: absolute;
   z-index: 1000;
-  background: black;
+  background: var(--accent);
+  color: white;
   width: 1.5rem;
   height: 1.5rem;
   font-size: 1.25rem;
