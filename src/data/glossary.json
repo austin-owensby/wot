@@ -4,7 +4,10 @@
         "chapterIndex": 0,
         "name": "Aes Sedai",
         "description": "<i>EYEZ seh-DEYE</i><br><br>Wielders of the One Power. Since the Time of Madness, all surviving Aes Sedai are women. Widely distrusted and feared, even hated, they are blamed by many for the Breaking of the World, and are genearally throught to meddle in the affairs of nations. At the same time, few rulers will be withou an Aes Sedai adviser, even in lands where the existence of such a connection must be kept secret. Used as an honorific, so: Sheriam Sedai; and as a high honorific, so: Sheriam Aes Sedai.",
-        "tags": ["Ajah", "Amyrlin Seat"]
+        "tags": [
+            "Ajah",
+            "Amyrlin Seat"
+        ]
     },
     {
         "bookIndex": 1,

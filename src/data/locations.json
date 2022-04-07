@@ -1,16 +1,9 @@
 [
     {
         "bookIndex": 1,
-        "chapterIndex": 0,
-        "name": "Emond's Field",
-        "description": "<br>Sheep + tabac",
-        "tags": []
-    },
-    {
-        "bookIndex": 1,
-        "chapterIndex": 12,
-        "name": "Taren Ferry",
-        "description": "",
+        "chapterIndex": 19,
+        "name": "Shadar Logoth",
+        "description": "<i>SHAH-dahr LOH-goth</i><br><br>In the Old Tongue, \"the Place Where the Shadow Waits.\" A city abandoned and shunned since the Trolloc Wars. Also called \"Shadow's Waiting\"",
         "tags": []
     },
     {
@@ -22,9 +15,16 @@
     },
     {
         "bookIndex": 1,
-        "chapterIndex": 19,
-        "name": "Shadar Logoth",
-        "description": "<i>SHAH-dahr LOH-goth</i><br><br>In the Old Tongue, \"the Place Where the Shadow Waits.\" A city abandoned and shunned since the Trolloc Wars. Also called \"Shadow's Waiting\"",
+        "chapterIndex": 12,
+        "name": "Taren Ferry",
+        "description": "",
+        "tags": []
+    },
+    {
+        "bookIndex": 1,
+        "chapterIndex": 0,
+        "name": "Emond's Field",
+        "description": "<br>Sheep + tabac",
         "tags": []
     }
 ]
