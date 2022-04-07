@@ -1,5 +1,19 @@
 [
     {
+        "bookIndex": 3,
+        "chapterIndex": 0,
+        "name": "Rand Al'Thor",
+        "description": "<i>RAND ahl-THOR</i><br><br>A young man from Emond's field who is <i>ta'veren</i>. Once a shephard. Now proclaimed as the Dragon Reborn.",
+        "tags": []
+    },
+    {
+        "bookIndex": 2,
+        "chapterIndex": 0,
+        "name": "Rand Al'Thor",
+        "description": "<i>RAND ahl-THOR</i><br><br>A young man from Emond's field, once a shephard.",
+        "tags": []
+    },
+    {
         "bookIndex": 1,
         "chapterIndex": 0,
         "name": "Rand Al'Thor",
